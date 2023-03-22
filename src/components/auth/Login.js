@@ -22,9 +22,9 @@ function Login() {
     }
   };
 
-  const register = () => {
+  const LoginHandler = () => {
     if (email === "" || password === "") {
-      toast.error("Email and  Password are required");
+      toast.error("Email and Password are required");
       return;
     }
     const loginParams = {
@@ -74,7 +74,7 @@ function Login() {
 
             <button
               className="bg-slate-600 mt-8 py-3 w-full text-white rounded-lg"
-              onClick={register}
+              onClick={LoginHandler}
             >
               {!loading && <div className="font-medium">SIGN IN</div>}
               {loading && (

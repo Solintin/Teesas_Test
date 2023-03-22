@@ -49,8 +49,9 @@ function Home() {
     setSelectedCategory(id);
   };
   useEffect(() => {
-    // setFilteredCatgories(categories.filter(Boolean));
-  }, []);
+    setFilteredCatgories(categories.filter(Boolean));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category]);
   return (
     <div className="mt-6">
       {isModalOpen && <AddCategory handleModal={handleModal} />}
