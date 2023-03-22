@@ -4,6 +4,7 @@ import Eyeopen from "assets/Svg/eyeopen.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LoginAction } from "Redux/Actions/ActionCreators";
+import Loader from "components/UI/Loader";
 function Login() {
   const [type, setType] = useState("password");
 
@@ -34,7 +35,7 @@ function Login() {
 
         <div className="p-5 mt-20">
           <h1 className="text-2xl text-white font-semibold text-center">
-            SIGN IN
+            TEESAS INV MGMT SYSTEM 
           </h1>
           <div className="bg-white h-full shadow-xl rounded-3xl py-10 px-4 mt-5">
             <div className="mb-4 flex flex-col">
@@ -71,7 +72,7 @@ function Login() {
               onClick={register}
             >
               {!loading && <div className="font-medium">SIGN IN</div>}
-              {loading && <div className="font-medium">Loading...</div>}
+              {loading && <div className="font-medium"><Loader /> </div>}
             </button>
             <div className="flex justify-center mt-4 items-center">
               <span className="mr-2">Don’t have an account? </span>

@@ -12,20 +12,23 @@ import { removeCategory } from "Redux/Actions/ActionCreators";
 
 function Home() {
   const { category } = useSelector((state) => state.inventories);
+  const { currentUser } = useSelector((state) => state.user);
+  //get category of current user
+  const categories = category.filter((x) => x.user === currentUser.id);
+
   const dispatch = useDispatch();
   const [actionNo, setactionNo] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(null);
-  const [filterCategories, setFilteredCatgories] = useState(
-    category.filter(Boolean)
-  );
+  const [filterCategories, setFilteredCatgories] = useState(categories);
 
   const handleSearch = (e) => {
     const { value } = e.target;
-    const result = category.filter((item) =>
+    const result = categories.filter((item) =>
       item.name.toLowerCase().includes(value.toLowerCase())
     );
+    console.log(categories);
     setFilteredCatgories(result);
   };
   const handleActionDropDown = (idx) => {
@@ -46,8 +49,8 @@ function Home() {
     setSelectedCategory(id);
   };
   useEffect(() => {
-    setFilteredCatgories(category.filter(Boolean));
-  }, [category]);
+    // setFilteredCatgories(categories.filter(Boolean));
+  }, []);
   return (
     <div className="mt-6">
       {isModalOpen && <AddCategory handleModal={handleModal} />}
@@ -85,7 +88,7 @@ function Home() {
             />
           </div>
         </div>
-        {category.length > 0 ? (
+        {filterCategories.length > 0 ? (
           <div className="mt-6 ">
             <div className="bg-[#E6EFEF] font-medium p-4 grid grid-cols-12 gap-4">
               <div className="col-span-1">#</div>

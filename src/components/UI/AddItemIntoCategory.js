@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { IoCloseSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { addItem } from "Redux/Actions/ActionCreators";
 import { formatDate } from "Utils/helper";
 
 function AddItem({ handleModal, catId }) {
-  const { category } = useSelector((state) => state.inventories);
   const { currentUser } = useSelector((state) => state.user);
 
   const [CatId] = useState(catId);

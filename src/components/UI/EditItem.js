@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 import { IoCloseSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { editItem } from "Redux/Actions/ActionCreators";
-import { formatDate } from "Utils/helper";
 
 function EditItem({ item, handleModal }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -19,7 +18,7 @@ function EditItem({ item, handleModal }) {
       return;
     }
 
-    const payload = {
+    const payload = { 
       id: item.id,
       user: currentUser.id,
       name: itemName,

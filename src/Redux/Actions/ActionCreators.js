@@ -13,6 +13,7 @@ const logout = (navigate) => {
 
 const registerUser = (payload, navigate, setLoading) => {
   return (dispatch, getState) => {
+    setLoading(true);
     setTimeout(() => {
       const { users } = getState();
       let allUsersCopy = [];
@@ -40,6 +41,7 @@ const registerUser = (payload, navigate, setLoading) => {
 };
 
 const LoginAction = (loginParams, navigate, setLoading) => {
+  setLoading(true);
   return async (dispatch, getState) => {
     const { allUsers } = getState().users;
     setTimeout(() => {
@@ -109,8 +111,6 @@ const editCategory = (catId, payload, handleModal) => {
   };
 };
 
-
-
 const addItem = (payload, closeModal) => {
   return (dispatch, getState) => {
     const { categoryItems } = getState().inventories;
@@ -121,7 +121,6 @@ const addItem = (payload, closeModal) => {
         item.name.toLowerCase() === payload.name.toLowerCase()
     );
     if (isItemExist === undefined) {
-
       const updatedCategories = [...cleanedCategoryItems, payload];
       dispatch({ type: type.ADD_CATEGORY_ITEM, payload: updatedCategories });
       toast.success("item added successfully");
