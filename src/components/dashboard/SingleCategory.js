@@ -37,7 +37,7 @@ function Home() {
   };
 
   return (
-    <div className="mt-6 let swipeLeft">
+    <div className="mt-6 ">
       {isModalOpen && (
         <AddItemIntoCategory catId={id} handleModal={handleModal} />
       )}

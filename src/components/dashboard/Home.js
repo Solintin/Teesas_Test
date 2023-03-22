@@ -71,7 +71,7 @@ function Home() {
   }, [categoryItems]);
 
   return (
-    <div className="mt-6 let swipeLeft">
+    <div className="mt-6 ">
       {isModalOpen && <AddItem handleModal={handleModal} />}
       {isEditModalOpen && (
         <EditItem item={itemToEdit} handleModal={handleEditModal} />
