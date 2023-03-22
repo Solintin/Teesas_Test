@@ -25,7 +25,7 @@ const Index = () => {
             isMobile ? "isOpen" : ""
           } sidebar w-[300px] flex z-[5] bg-slate-600  fixed h-screen `}
         >
-          <Sidebar />
+          <Sidebar isMobile={isMobile} setIsMobile={setIsMobile} />
         </div>
 
         <div className={`relative  md:ml-[300px] w-full`}>

@@ -87,7 +87,7 @@ function Home() {
                     onClick={() => {
                       handleEdit(item);
                     }}
-                    className="bg-slate-300 p-2 rounded-bl-lg"
+                    className="bg-slate-300 p-2 md:rounded-bl-lg"
                   >
                     EDIT
                   </button>
@@ -95,7 +95,7 @@ function Home() {
                     onClick={() => {
                       handleDelete(item.id);
                     }}
-                    className="text-white bg-red-300 p-2 rounded-br-lg"
+                    className="text-white bg-red-300 p-2 md:rounded-br-lg"
                   >
                     DELETE
                   </button>
