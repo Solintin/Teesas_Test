@@ -57,7 +57,7 @@ function Home() {
   }, [category]);
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 let swipeLeft">
       {isModalOpen && <AddCategory handleModal={handleModal} />}
       {isEditModalOpen && (
         <EditCategory handleModal={handleEditModal} id={selectedCategory} />

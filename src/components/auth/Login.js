@@ -34,11 +34,11 @@ function Login() {
     dispatch(LoginAction(loginParams, navigate, setloading));
   };
   return (
-    <div>
+    <div className="let swipeLeft">
       <div className="poppins max-w-xl mx-auto">
         <div className="z-[-1] fixed bg-[#1F2937] h-[250px] top-0 inset-0 rounded-b-[65px] pt-[100px] text-center"></div>
 
-        <div className="p-5 mt-20">
+        <div className="p-5 transform translate-y-20">
           <h1 className="text-2xl text-white font-semibold text-center">
             TEESAS INV MGMT SYSTEM
           </h1>
