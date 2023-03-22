@@ -26,12 +26,12 @@ function Header({ isMobile, setIsMobile }) {
           >
             <GiHamburgerMenu />
           </button>
-          <Link to="/dashboard/home" className="text-center py-2  font-bold">
+          <Link to="/dashboard/home" className="text-center   font-bold">
             Inventory Management System
           </Link>
         </div>
 
-        <div className="space-x-8 font-medium flex items-center ">
+        <div className=" font-medium flex items-center">
           <div className="relative">
             {isOpen && (
               <div
@@ -45,7 +45,7 @@ function Header({ isMobile, setIsMobile }) {
               onClick={() => {
                 setisOpen(!isOpen);
               }}
-              className="text-2xl"
+              className="text-2xl mt-3"
             >
               <CgProfile />
             </button>
