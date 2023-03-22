@@ -45,7 +45,7 @@ function Header({ isMobile, setIsMobile }) {
               onClick={() => {
                 setisOpen(!isOpen);
               }}
-              className="text-2xl mt-3"
+              className="text-2xl mt-1"
             >
               <CgProfile />
             </button>
