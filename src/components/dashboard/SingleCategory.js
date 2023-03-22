@@ -62,9 +62,9 @@ function Home() {
 
       <div className="bg w-full mt-6 pt-4 rounded-lg">
         {userItems.length > 0 ? (
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-4">
             {userItems.map((item, idx) => (
-              <div className="box_container" key={idx}>
+              <div className="box_container w-full" key={idx}>
                 <img
                   src={ItemIcon}
                   alt=""
