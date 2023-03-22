@@ -23,7 +23,7 @@ const registerUser = (payload, navigate, setLoading) => {
       const isUserExist = allUsersCopy.find(
         (user) => user.email === newUser.email
       );
-      if (!isUserExist) {
+      if (!isUserExist) { //checks if user already exists
         allUsersCopy.push(newUser);
         dispatch({ type: type.REGISTER_NEW_USER, payload: allUsersCopy });
 
@@ -47,7 +47,7 @@ const LoginAction = (loginParams, navigate, setLoading) => {
     setTimeout(() => {
       const User = allUsers.find((user) => user.email === loginParams.email);
       if (User) {
-        const isPasswordMatch = User.password === loginParams.password;
+        const isPasswordMatch = User.password === loginParams.password; //check if password matches user's saved password
         if (isPasswordMatch) {
           dispatch({ type: type.FETCH_USER_SUCCESS, payload: User });
           toast.success("Login successful");
@@ -77,6 +77,7 @@ const addCategory = (payload, closeModal) => {
         item.name.toLowerCase() === payload.name.toLowerCase()
     );
     if (isItemExist === undefined) {
+      //if category doesn't exist then add it to the list of categories
       const updatedCategories = [...cleanedCategory, payload];
       dispatch({ type: type.ADD_CATEGORY, payload: updatedCategories });
       toast.success("Category added successfully");
@@ -89,10 +90,10 @@ const addCategory = (payload, closeModal) => {
 const removeCategory = (catId) => {
   return (dispatch, getState) => {
     const { categoryItems, category } = getState().inventories;
-    const cleanedCategory = category.filter(Boolean);
+    const cleanedCategory = category.filter(Boolean); // filter all null or undefined values from the category
 
     const updatedCategory = cleanedCategory.filter((item) => item.id !== catId);
-    //All Remove item attached to removed category, to prevent Data inconsistency
+    //Removing All item attached to removed category, to prevent Data inconsistency
     const updatedCategoryItems = categoryItems.filter(
       (item) => item.categoryId !== catId
     );
@@ -139,7 +140,7 @@ const addItem = (payload, closeModal) => {
 const removeItem = (itemId) => {
   return (dispatch, getState) => {
     const { categoryItems } = getState().inventories;
-    const cleanedCategoryItems = categoryItems.filter(Boolean);
+    const cleanedCategoryItems = categoryItems.filter(Boolean); //filter away all null or undefined items value
 
     const updatedCategoryItems = cleanedCategoryItems.filter(
       (item) => item.id !== itemId
