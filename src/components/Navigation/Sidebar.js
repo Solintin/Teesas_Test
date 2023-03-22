@@ -1,7 +1,12 @@
 import React from "react";
+import { BsFillGridFill } from "react-icons/bs";
+import { BiCategory } from "react-icons/bi";
+import { BsFillGearFill } from "react-icons/bs";
+import { FaUser } from "react-icons/fa";
+import { BiHelpCircle } from "react-icons/bi";
+import { FiLogOut } from "react-icons/fi";
 
-import users from "assets/Svg/user.svg";
-
+// BsFillGridFill
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -17,9 +22,9 @@ function Sidebar() {
 
   return (
     <div className="pt-4 pl-20 w-full text-white">
-      <Link to="/">
+      <Link to="/" className="text-xl font-semibold text-white ml-4">
         {" "}
-        <img src={users} alt="" />
+        IMS
       </Link>
       <div className="mt-20 font-bold text-sm">
         <Link
@@ -28,7 +33,7 @@ function Sidebar() {
             pathname.includes("home") && "bg-[#F4F4F5] text-black"
           }`}
         >
-          <img src={users} alt="" />
+          <BsFillGridFill/>
           <h3>Dashboard</h3>
         </Link>
         <Link
@@ -37,7 +42,7 @@ function Sidebar() {
             pathname.includes("category") && "bg-[#F4F4F5] text-black"
           }`}
         >
-          <img src={users} alt="" />
+          <BiCategory/>
           <h3>Category</h3>
         </Link>
         <Link
@@ -46,7 +51,7 @@ function Sidebar() {
             pathname.includes("appointment") && "bg-[#F4F4F5] text-black"
           }`}
         >
-          <img src={users} alt="" />
+          <BsFillGearFill/>
           <h3>Settings</h3>
         </Link>
 
@@ -56,7 +61,7 @@ function Sidebar() {
             pathname.includes("profile") && "bg-[#F4F4F5] text-black"
           }`}
         >
-          <img src={users} alt="" />
+          <FaUser/>
           <h3>My profile</h3>
         </Link>
         <Link
@@ -65,14 +70,14 @@ function Sidebar() {
             pathname.includes("help") && "bg-[#F4F4F5] text-black"
           }`}
         >
-          <img src={users} alt="" />
+          <BiHelpCircle/>
           <h3>Help</h3>
         </Link>
         <button
           onClick={handleLogout}
           className={`py-5  pl-2 rounded-l-lg flex space-x-4`}
         >
-          <img src={users} alt="" />
+          <FiLogOut/>
           <h3>Logout</h3>
         </button>
       </div>

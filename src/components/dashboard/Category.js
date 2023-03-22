@@ -6,9 +6,11 @@ import { VscEmptyWindow } from "react-icons/vsc";
 import AddCategory from "components/UI/AddCategory";
 import EditCategory from "components/UI/EditCategory";
 import Eyeopen from "assets/Svg/eyeopen.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeCategory } from "Redux/Actions/ActionCreators";
+import { FiPlus } from "react-icons/fi";
+import { IoChevronBackOutline } from "react-icons/io5";
 
 function Home() {
   const { category } = useSelector((state) => state.inventories);
@@ -23,6 +25,7 @@ function Home() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(null);
   const [filterCategories, setFilteredCatgories] = useState(categories);
 
+  const navigate = useNavigate();
   const handleSearch = (e) => {
     const { value } = e.target;
     const result = categories.filter((item) =>
@@ -52,6 +55,7 @@ function Home() {
     setFilteredCatgories(categories.filter(Boolean));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
+
   return (
     <div className="mt-6">
       {isModalOpen && <AddCategory handleModal={handleModal} />}
@@ -59,18 +63,21 @@ function Home() {
         <EditCategory handleModal={handleEditModal} id={selectedCategory} />
       )}
       <div className="flex justify-between items-center py-4">
-        <div>
-          {" "}
-          <h1 className="font-bold text-xl">Categories</h1>{" "}
+        <div className="flex items-center space-x-2">
+          <button onClick={() => navigate(-1)}>
+            <IoChevronBackOutline size={20} />
+          </button>
+          <h1 className="font-bold text-xl">Categories</h1>
         </div>
         <div>
           <button
             onClick={() => {
               setIsModalOpen(!isModalOpen);
             }}
-            className="rounded-lg p-2 bg-slate-600 text-white"
+            className="rounded-lg p-2 bg-slate-600 text-white space-x-1 flex items-center"
           >
-            Add category
+            <FiPlus />
+            <span>Add Category</span>
           </button>
         </div>
       </div>

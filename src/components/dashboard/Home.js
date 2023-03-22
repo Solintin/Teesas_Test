@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { VscEmptyWindow } from "react-icons/vsc";
 import { BsCollection } from "react-icons/bs";
 import { FaThList } from "react-icons/fa";
+import { FiPlus } from "react-icons/fi";
 import AddItem from "components/UI/AddItem";
 import { useDispatch, useSelector } from "react-redux";
 import { digitFormatter } from "Utils/helper";
@@ -64,6 +65,11 @@ function Home() {
     setitemToEdit(item);
   };
 
+  useEffect(() => {
+    setFiltereditems(updatedUserItems.filter(Boolean));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryItems]);
+
   return (
     <div className="mt-6">
       {isModalOpen && <AddItem handleModal={handleModal} />}
@@ -79,9 +85,10 @@ function Home() {
             onClick={() => {
               setIsModalOpen(!isModalOpen);
             }}
-            className="rounded-lg p-2 bg-slate-600 text-white"
+            className="rounded-lg p-2 bg-slate-600 text-white space-x-1 flex items-center"
           >
-            Add Item
+            <FiPlus />
+            <span>Add Item</span>
           </button>
         </div>
       </div>
@@ -115,7 +122,8 @@ function Home() {
             )}
             {userItems.length <= 1 && (
               <p className="text-right text-gray-500">Total No of item</p>
-            )}          </div>
+            )}{" "}
+          </div>
         </div>
       </div>
 
@@ -134,7 +142,7 @@ function Home() {
           </div>
         </div>
         {filterItems.length > 0 ? (
-          <div className="overflow-x-auto">
+          <div className="overflow-aut">
             <div className="mt-6 min-w-[800px]">
               <div className="bg-[#E6EFEF] font-medium p-4 grid grid-cols-12 gap-4">
                 <div className="col-span-1">#</div>
