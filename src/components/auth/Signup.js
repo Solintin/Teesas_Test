@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "Redux/Actions/ActionCreators";
 import Loader from "components/UI/Loader";
+import toast from "react-hot-toast";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,6 +25,16 @@ function Login() {
   };
 
   const register = () => {
+    if (
+      email === "" ||
+      password === "" ||
+      firstName === "" ||
+      lastName === "" ||
+      password === ""
+    ) {
+      toast.error("All fields are required");
+      return;
+    }
     const registraionParams = {
       firstName,
       lastName,
