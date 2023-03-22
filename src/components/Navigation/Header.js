@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { useDispatch } from "react-redux";
 
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "Redux/Actions/ActionCreators";
 
-function Header() {
+function Header({ isMobile, setIsMobile }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isOpen, setisOpen] = useState(false);
@@ -16,7 +17,15 @@ function Header() {
   return (
     <header className=" bg-white border-b border-gray-300 text-black  py-1 z-10   sticky top-0 inset-x-0">
       <div className="flex justify-between section-container  items-center">
-        <div className="flex space-x-8 items-center">
+        <div className="flex space-x-2 items-center">
+          <button
+            onClick={() => {
+              setIsMobile(!isMobile);
+            }}
+            className="block md:hidden"
+          >
+            <GiHamburgerMenu />
+          </button>
           <Link to="/dashboard/home" className="text-center py-2  font-bold">
             Inventory Management System
           </Link>

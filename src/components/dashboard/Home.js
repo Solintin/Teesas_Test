@@ -93,7 +93,7 @@ function Home() {
         </div>
       </div>
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="box_container space-x-2 flex justify-between items-center py-4 px-2">
+        <div className="box_container space-x-2  flex justify-between items-center py-4 px-4">
           <div className="h-10 w-10 rounded-full bg-slate-600 text-white grid place-content-center p-2">
             <BsCollection />
           </div>
@@ -109,7 +109,7 @@ function Home() {
             )}
           </div>
         </div>
-        <div className="box_container space-x-2 flex justify-between items-center py-4 px-2">
+        <div className="box_container space-x-2  flex justify-between items-center py-4 px-4">
           <div className="h-10 w-10 rounded-full bg-slate-600  text-white grid place-content-center p-2">
             <FaThList />
           </div>
@@ -142,7 +142,7 @@ function Home() {
           </div>
         </div>
         {filterItems.length > 0 ? (
-          <div className="overflow-aut">
+          <div className="overflow-x-auto mb-10">
             <div className="mt-6 min-w-[800px]">
               <div className="bg-[#E6EFEF] font-medium p-4 grid grid-cols-12 gap-4">
                 <div className="col-span-1">#</div>

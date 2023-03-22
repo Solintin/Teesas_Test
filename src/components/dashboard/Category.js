@@ -131,12 +131,12 @@ function Home() {
                     ></div>
                   )}
                   {idx === actionNo && (
-                    <div className="z-10 absolute -left-28 shadow-md border bg-white rounded  h-auto md:w-52 w-36 flex flex-col divide-y-2">
+                    <div className="z-10 absolute -left-28 shadow-md border bg-white rounded  h-auto md:w-52 w-44 flex flex-col divide-y-2">
                       <Link
                         to={`/dashboard/category/${item.id}`}
                         className="px-3 md:py-2 py-1 text-xs md:text-base flex items-center space-x-2"
                       >
-                        <img src={Eyeopen} alt="view" className="w-5 " />
+                        <img src={Eyeopen} alt="view" className="md:w-5 w-4 " />
 
                         <span>View Category Items</span>
                       </Link>

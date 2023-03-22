@@ -29,8 +29,8 @@ function AddItem({ handleModal, id }) {
   }, [getCategory]);
   return (
     <div>
-      <div className="fixed z-1 bg-black/30 inset-0   pt-20">
-        <div className="bg-white rounded-lg w-[500px] h-auto mx-auto py-4 let swipeIn">
+      <div className="fixed z-1 bg-black/30 inset-0   pt-20 px-4">
+        <div className="bg-white rounded-lg md:w-[500px] w-full h-auto mx-auto py-4 let swipeIn">
           <div className="p-4 border-b mb-4 flex justify-between">
             <div>Edit Category</div>
             <button onClick={handleModal}>
