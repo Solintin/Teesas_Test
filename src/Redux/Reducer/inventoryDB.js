@@ -1,30 +1,20 @@
 import * as type from "../Actions/Types";
 
 const initailState = {
-  category: [
-    {
-      id: "",
-      user: "",
-      name: "",
-      cretaeAt: "",
-    },
-  ],
-  categoryItems: [
-    {
-      id: "",
-      user: "",
-      name: "",
-      category: "",
-      createdAt: "",
-    },
-  ],
+  category: [],
+  categoryItems: [],
 };
-const User = (state = initailState, action) => {
+const Inventory = (state = initailState, action) => {
   switch (action.type) {
-    case type.LOGIN_SUCCESS:
+    case type.ADD_CATEGORY:
       return {
         ...state,
-        token: action.payload.accessToken,
+        category: action.payload,
+      };
+    case type.ADD_CATEGORY_ITEM:
+      return {
+        ...state,
+        categoryItems: action.payload,
       };
 
     default:
@@ -32,4 +22,22 @@ const User = (state = initailState, action) => {
   }
 };
 
-export default User;
+export default Inventory;
+
+// category: [
+// {
+//   id: "",
+//   user: "",
+//   name: "",
+//   cretaeAt: "",
+// },
+// ],
+// categoryItems: [
+// {
+//   id: "",
+//   user: "",
+//   name: "",
+//   category: "",
+//   createdAt: "",
+// },
+// ],

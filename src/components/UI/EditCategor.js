@@ -2,35 +2,34 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { IoCloseSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { addCategory } from "Redux/Actions/ActionCreators";
-import { formatDate } from "Utils/helper";
+import {  editCategory } from "Redux/Actions/ActionCreators";
 
-function AddItem({ handleModal }) {
-  const { currentUser } = useSelector((state) => state.user);
-
+function AddItem({ handleModal, id }) {
+  const { category } = useSelector((state) => state.inventories);
   const [categoryName, setCategoryName] = useState("");
 
+  const getCategory = category.find((item) => item.id === id);
+
   const dispatch = useDispatch();
-  const handleCategory = () => {
+
+  const handleCategoryEdit = () => {
     if (categoryName === "") {
       toast.error("Category name can't be empty");
       return;
     }
 
     const payload = {
-      id: Date.now(),
-      user: currentUser.id,
+      ...getCategory,
       name: categoryName,
-      createdAt: formatDate(Date.now()),
     };
-    dispatch(addCategory(payload, handleModal));
+    dispatch(editCategory(payload.id, payload, handleModal));
   };
   return (
     <div>
       <div className="fixed z-1 bg-black/30 inset-0   pt-20">
         <div className="bg-white rounded-lg w-[500px] h-auto mx-auto py-4 let swipeIn">
           <div className="p-4 border-b mb-4 flex justify-between">
-            <div>Add New Cateogry</div>
+            <div>Edit Cateogry</div>
             <button onClick={handleModal}>
               <IoCloseSharp />
             </button>
@@ -41,16 +40,17 @@ function AddItem({ handleModal }) {
               type="text"
               className="border p-3 outline-none rounded-lg w-full mb-2"
               placeholder="Name"
+              value={categoryName}
               onChange={(e) => {
                 setCategoryName(e.target.value);
               }}
             />
 
             <button
-              onClick={handleCategory}
+              onClick={handleCategoryEdit}
               className="rounded-lg p-2 mt-2 bg-slate-600 text-white w-full"
             >
-              Add New Category
+              Edit Category
             </button>
           </div>
         </div>

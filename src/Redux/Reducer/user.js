@@ -13,7 +13,7 @@ const User = (state = initailState, action) => {
         isLoggedIn: true,
       };
 
-    case type.LOGOUT:
+    case type.LOGOUT_USER:
       return {
         ...state,
         currentUser: null,

@@ -2,51 +2,111 @@
 import * as type from "./Types";
 import toast from "react-hot-toast";
 
-const logout = () => {
-  return {
-    type: type.LOGOUT,
+const logout = (navigate) => {
+  return (dispatch) => {
+    dispatch({
+      type: type.LOGOUT_USER,
+    });
+    navigate("/");
   };
 };
 
-const registerUser = (payload) => {
-  return (dispatch, state) => {
-    let allUsersCopy = [];
+const registerUser = (payload, navigate, setLoading) => {
+  return (dispatch, getState) => {
+    setTimeout(() => {
+      const { users } = getState();
+      let allUsersCopy = [];
 
-    allUsersCopy = state.allUsers;
-    const newUser = payload;
-    const isUserExist = allUsersCopy.find(
-      (user) => user.email === newUser.email
-    );
-    if (!isUserExist) {
-      allUsersCopy.push(newUser);
-      dispatch({ type: type.REGISTER_NEW_USER, payload: allUsersCopy });
-      toast.success("Registration successful");
-    } else {
-      toast.error("User already exist");
-    }
+      allUsersCopy = users.allUsers;
+      const newUser = payload;
+      const isUserExist = allUsersCopy.find(
+        (user) => user.email === newUser.email
+      );
+      if (!isUserExist) {
+        allUsersCopy.push(newUser);
+        dispatch({ type: type.REGISTER_NEW_USER, payload: allUsersCopy });
+
+        dispatch({ type: type.FETCH_USER_SUCCESS, payload: payload });
+        navigate("/dashboard/home");
+        toast.success("Registration successful");
+        setLoading(false);
+      } else {
+        setLoading(false);
+
+        toast.error("User already exist");
+      }
+    }, 1000);
   };
 };
 
 const LoginAction = (loginParams, navigate, setLoading) => {
-  return async (dispatch, state) => {
-    setLoading(true);
+  return async (dispatch, getState) => {
+    const { allUsers } = getState().users;
     setTimeout(() => {
-      setLoading(false);
-      const User = state.find((user) => user.email === loginParams.email);
+      const User = allUsers.find((user) => user.email === loginParams.email);
       if (User) {
         const isPasswordMatch = User.password === loginParams.password;
         if (isPasswordMatch) {
           dispatch({ type: type.FETCH_USER_SUCCESS, payload: User });
           toast.success("Login successful");
-          navigate("/dashboard");
+          navigate("/dashboard/home");
+          setLoading(false);
         } else {
+          setLoading(false);
+
           toast.error("Email or password incorrect");
         }
       } else {
+        setLoading(false);
+
         toast.error("User not found");
       }
     }, 1000);
   };
 };
 
-export { registerUser, LoginAction, logout };
+const addCategory = (payload, closeModal) => {
+  return (dispatch, getState) => {
+    const { category } = getState().inventories;
+
+    const isItemExist = category.find(
+      (item) =>
+        item.user === payload.user &&
+        item.name.toLowerCase() === payload.name.toLowerCase()
+    );
+    if (isItemExist === undefined) {
+      const updatedCategories = [...category, payload];
+      dispatch({ type: type.ADD_CATEGORY, payload: updatedCategories });
+      toast.success("Category added successfully");
+      closeModal();
+    } else {
+      toast.error("You have already added this category");
+    }
+  };
+};
+const removeCategory = (catId) => {
+  return (dispatch, getState) => {
+    const { category } = getState().inventories;
+    const updatedCategory = category.filter((item) => item.id !== catId);
+    dispatch({ type: type.ADD_CATEGORY, payload: updatedCategory });
+    toast.success("Category deleted successfully");
+  };
+};
+const editCategory = (catId, payload, handleModal) => {
+  return (dispatch, getState) => {
+    const { category } = getState().inventories;
+    const updatedCategory = category.filter((item) => item.id !== catId);
+    dispatch({ type: type.ADD_CATEGORY, payload: [...updatedCategory, payload] });
+    toast.success("Category updated successfully");
+    handleModal();
+  };
+};
+
+export {
+  registerUser,
+  LoginAction,
+  logout,
+  addCategory,
+  removeCategory,
+  editCategory,
+};

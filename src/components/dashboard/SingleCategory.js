@@ -3,8 +3,8 @@ import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { VscEmptyWindow } from "react-icons/vsc";
-import AddCategory from "components/UI/AddCategory";
-import Eyeopen from "assets/Svg/eyeopen.svg";
+import AddCategory from "components/UI/AddItem";
+import ItemIcon from "assets/Svg/item.png";
 
 function Home() {
   const data = [
@@ -87,21 +87,30 @@ function Home() {
         </div>
       </div>
 
-      <div className="bg-white w-full mt-6 pt-4 rounded-lg">
-        <div className="grid grid-cols-2  items-center px-4">
-          <div className="fonr-semibold text-xl"></div>
-          <div>
-            <input
-              type="search"
-              placeholder="Search By Category Name"
-              className="border p-3 outline-none rounded-lg w-full"
-            />
-          </div>
-        </div>
+      <div className="bg w-full mt-6 pt-4 rounded-lg">
         {data.length > 0 ? (
-         <div className="grid grid-cols-3 gap-4">
-            
-         </div>
+          <div className="grid grid-cols-3 gap-4">
+            {[1, 2, 3].map((item, idx) => (
+              <div className="box_container" key={idx}>
+                <img
+                  src={ItemIcon}
+                  alt=""
+                  className="w- h-[200px] object-cover w-full"
+                />
+                <div className="p-3">
+                  {" "}
+                  <div className="grid grid-cols-12 gap-6 mb-4">
+                    <div className="col-span-3 font-medium">Name:</div>
+                    <div className="col-span-9 truncate">Rich Dad poor Dad</div>
+                  </div>
+                  <div className="grid grid-cols-12 gap-6">
+                    <div className="col-span-3 font-medium">price:</div>
+                    <div className="col-span-9 truncate">NGN 124.00</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
           <div className="bg-white w-full mt-6 p-4 rounded-lg grid place-content-center">
             <div className=" my-4 font-bold text-gray-500">

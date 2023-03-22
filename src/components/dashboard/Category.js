@@ -1,72 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { VscEmptyWindow } from "react-icons/vsc";
 import AddCategory from "components/UI/AddCategory";
 import Eyeopen from "assets/Svg/eyeopen.svg";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { removeCategory } from "Redux/Actions/ActionCreators";
 
 function Home() {
-  const data = [
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-  ];
-
+  const { category } = useSelector((state) => state.inventories);
+  const dispatch = useDispatch();
   const [actionNo, setactionNo] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(null);
+  const [filterCategories, setFilteredCatgories] = useState(category);
 
+  const handleSearch = (e) => {
+    const { value } = e.target;
+    const result = category.filter((item) =>
+      item.name.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredCatgories(result);
+  };
   const handleActionDropDown = (idx) => {
     setactionNo(idx);
   };
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+  const handleDelete = (id) => {
+    dispatch(removeCategory(id));
+  };
+  const handleEdit = (id) => {
+    dispatch(removeCategory(id));
+  };
+  useEffect(() => {
+    setFilteredCatgories(category);
+  }, [category]);
   return (
     <div className="mt-6">
       {isModalOpen && <AddCategory handleModal={handleModal} />}
@@ -95,30 +66,29 @@ function Home() {
               type="search"
               placeholder="Search By Category Name"
               className="border p-3 outline-none rounded-lg w-full"
+              onChange={(e) => {
+                handleSearch(e);
+              }}
             />
           </div>
         </div>
-        {data.length > 0 ? (
+        {category.length > 0 ? (
           <div className="mt-6 ">
             <div className="bg-[#E6EFEF] font-medium p-4 grid grid-cols-12 gap-4">
               <div className="col-span-1">#</div>
-              <div className="col-span-2">Item Name</div>
-              <div className="col-span-2">Item Category</div>
-              <div className="col-span-3">Item Price</div>
-              <div className="col-span-2">CreatedAt</div>
-              <div className="col-span-2 text-center">Actions</div>
+              <div className="col-span-4">Category Name</div>
+              <div className="col-span-4">CreatedAt</div>
+              <div className="col-span-3 text-center">Actions</div>
             </div>
-            {data.map((item, idx) => (
+            {filterCategories.map((item, idx) => (
               <div
                 className=" border-b p-4 grid grid-cols-12 gap-4 items-center hover:bg-slate-300  capitalize"
                 key={idx}
               >
                 <div className="col-span-1"> {idx + 1} </div>
-                <div className="col-span-2">{item.name} </div>
-                <div className="col-span-2"> {item.Category}</div>
-                <div className="col-span-3 ">{item.Price}</div>
-                <div className="col-span-2">{item.createdAt}</div>
-                <div className="col-span-2 flex justify-center relative">
+                <div className="col-span-4">{item.name} </div>
+                <div className="col-span-4">{item.createdAt}</div>
+                <div className="col-span-3 flex justify-center relative">
                   <button
                     onClick={() => {
                       handleActionDropDown(idx);
@@ -138,19 +108,27 @@ function Home() {
                   )}
                   {idx === actionNo && (
                     <div className="z-10 absolute -left-28 shadow-md border bg-white rounded  h-auto md:w-44 w-36 flex flex-col divide-y-2">
-                      <button className="px-3 md:py-2 py-1 text-xs md:text-base flex items-center space-x-2">
+                      <Link
+                        to={`/dashboard/category/${item.id}`}
+                        className="px-3 md:py-2 py-1 text-xs md:text-base flex items-center space-x-2"
+                      >
                         <img src={Eyeopen} alt="view" className="w-5 " />
 
                         <span>View Category</span>
-                      </button>
+                      </Link>
                       <button className="px-4 md:py-2 py-1 text-xs md:text-base flex items-center space-x-2">
                         <FiEdit />
 
-                        <span>Edit Item</span>
+                        <span>Edit Category</span>
                       </button>
-                      <button className="text-red-500 px-4 md:py-2 py-1 text-xs md:text-base flex items-center space-x-2">
+                      <button
+                        onClick={() => {
+                          handleDelete(item.id);
+                        }}
+                        className="text-red-500 px-4 md:py-2 py-1 text-xs md:text-base flex items-center space-x-2"
+                      >
                         <AiOutlineDelete />
-                        <span>Delete Item</span>
+                        <span>Delete Category</span>
                       </button>
                     </div>
                   )}

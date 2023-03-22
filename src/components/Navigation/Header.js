@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
+import { useDispatch } from "react-redux";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "Redux/Actions/ActionCreators";
 
 function Header() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isOpen, setisOpen] = useState(false);
+  const handleLogout = () => {
+    dispatch(logout(navigate));
+  };
 
   return (
     <header className=" bg-white border-b border-gray-300 text-black  py-1 z-10   sticky top-0 inset-x-0">
       <div className="flex justify-between section-container  items-center">
         <div className="flex space-x-8 items-center">
-          <Link to="/trainee/dashboard" className="text-center py-2  font-bold">
+          <Link to="/dashboard/home" className="text-center py-2  font-bold">
             Inventory Management System
           </Link>
         </div>
@@ -31,22 +38,22 @@ function Header() {
               }}
               className="text-2xl"
             >
-              <CgProfile  />
+              <CgProfile />
             </button>
             {isOpen && (
               <div className="top-8 right-2 rounded-lg absolute bg-white shadow w-48  flex flex-col">
                 <Link
-                  to="/trainee/dashboard"
+                  to="/dashboard/home"
                   className="p-3 hover:bg-gray-100 rounded-t-lg "
                 >
                   User profile
                 </Link>
-                <Link
-                  to="/trainee/dashboard"
-                  className="p-3 hover:bg-gray-100 rounded-t-lg "
+                <button
+                  className="p-3 hover:bg-gray-100 rounded-t-lg text-left"
+                  onClick={handleLogout}
                 >
                   Logout
-                </Link>
+                </button>
               </div>
             )}
           </div>

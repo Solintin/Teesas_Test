@@ -3,7 +3,7 @@ import React from "react";
 import users from "assets/Svg/user.svg";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 
 function Sidebar() {
   const location = useLocation();
@@ -11,10 +11,9 @@ function Sidebar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
-    dispatch({ type: "LOGOUT" });
+    dispatch({ type: "LOGOUT_USER" });
     navigate("/");
   };
-
 
   return (
     <div className="pt-4 pl-20 w-full text-white">
@@ -42,18 +41,17 @@ function Sidebar() {
           <h3>Category</h3>
         </Link>
         <Link
-          to="/trainee/appointment"
+          to="#"
           className={`py-5  pl-2 rounded-l-lg flex space-x-4 ${
             pathname.includes("appointment") && "bg-[#F4F4F5] text-black"
           }`}
         >
           <img src={users} alt="" />
-          <h3>Appointments</h3>
+          <h3>Settings</h3>
         </Link>
-   
 
         <Link
-          to="/trainee/profile"
+          to="#"
           className={`py-5  pl-2 rounded-l-lg flex space-x-4 ${
             pathname.includes("profile") && "bg-[#F4F4F5] text-black"
           }`}

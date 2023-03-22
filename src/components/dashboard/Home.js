@@ -4,6 +4,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { VscEmptyWindow } from "react-icons/vsc";
 import AddItem from "components/UI/AddItem";
+import { useSelector } from "react-redux";
 
 function Home() {
   const data = [
@@ -57,6 +58,8 @@ function Home() {
     },
   ];
 
+  const { currentUser } = useSelector((state) => state.user);
+
   const [actionNo, setactionNo] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(null);
 
@@ -64,7 +67,7 @@ function Home() {
     setactionNo(idx);
   };
   const handleModal = () => {
-    setIsModalOpen(!isModalOpen)
+    setIsModalOpen(!isModalOpen);
   };
   return (
     <div className="mt-6">
@@ -72,18 +75,27 @@ function Home() {
       <div className="flex justify-between items-center py-4">
         <div>
           {" "}
-          <h1 className="font-bold text-xl">Dashboard</h1>{" "}
+          <h1 className="font-bold text-xl">
+            Welcome {currentUser.lastName}!{" "}
+          </h1>{" "}
         </div>
         <div>
-          <button 
-          onClick={()=>{setIsModalOpen(!isModalOpen)}} className="rounded-lg p-2 bg-slate-600 text-white">
+          <button
+            onClick={() => {
+              setIsModalOpen(!isModalOpen);
+            }}
+            className="rounded-lg p-2 bg-slate-600 text-white"
+          >
             Add Item
           </button>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
         {[1, 3].map((item, idx) => (
-          <div className="box_container space-x-2 flex justify-between items-center py-4 px-2" key={idx}>
+          <div
+            className="box_container space-x-2 flex justify-between items-center py-4 px-2"
+            key={idx}
+          >
             <div className="h-10 w-10 rounded-full bg-blue-300 text-greem grid place-content-center p-2">
               DO
             </div>

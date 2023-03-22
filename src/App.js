@@ -5,6 +5,7 @@ import { Login, Signup } from "./pages/Auth";
 import Dashbaord from "./pages/Dashboard";
 
 import { Toaster } from "react-hot-toast";
+import { RequireAuth } from "Utils/RequireAuth";
 
 const App = () => {
   return (
@@ -35,7 +36,14 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard/*" element={<Dashbaord />} />
+          <Route
+            path="/dashboard/*"
+            element={
+              <RequireAuth>
+                <Dashbaord />
+              </RequireAuth>
+            }
+          />
         </Routes>
       </Router>
     </div>

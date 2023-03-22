@@ -4,6 +4,7 @@ import Header from "components/Navigation/Header";
 import Sidebar from "components/Navigation/Sidebar";
 import Home from "components/dashboard/Home";
 import Category from "components/dashboard/Category";
+import SingleCategory from "components/dashboard/SingleCategory";
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
             <Routes>
               <Route exact path="/home" element={<Home />} />
               <Route exact path="/category" element={<Category />} />
+              <Route exact path="/category/:id" element={<SingleCategory />} />
             </Routes>
           </div>
         </div>

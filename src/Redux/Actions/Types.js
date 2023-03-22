@@ -6,7 +6,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 export const LOGIN_START = "LOGIN_START";
 
-export const LOGOUT = "LOGOUT";
+export const LOGOUT_USER = "LOGOUT_USER";
 
-export const GET_GALLERY_SUCCESS = "GET_GALLERY_SUCCESS";
-export const GET_JOB_SUCCESS = "GET_JOB_SUCCESS";
+export const ADD_CATEGORY = "ADD_CATEGORY";
+export const ADD_CATEGORY_ITEM = "ADD_CATEGORY_ITEM";
