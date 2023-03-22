@@ -4,6 +4,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { VscEmptyWindow } from "react-icons/vsc";
 import AddCategory from "components/UI/AddCategory";
+import EditCategory from "components/UI/EditCategory";
 import Eyeopen from "assets/Svg/eyeopen.svg";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,8 +14,12 @@ function Home() {
   const { category } = useSelector((state) => state.inventories);
   const dispatch = useDispatch();
   const [actionNo, setactionNo] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(null);
-  const [filterCategories, setFilteredCatgories] = useState(category);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(null);
+  const [filterCategories, setFilteredCatgories] = useState(
+    category.filter(Boolean)
+  );
 
   const handleSearch = (e) => {
     const { value } = e.target;
@@ -29,18 +34,26 @@ function Home() {
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+  const handleEditModal = () => {
+    setIsEditModalOpen(!isEditModalOpen);
+  };
   const handleDelete = (id) => {
     dispatch(removeCategory(id));
   };
   const handleEdit = (id) => {
-    dispatch(removeCategory(id));
+    setIsModalOpen(false);
+    handleEditModal();
+    setSelectedCategory(id);
   };
   useEffect(() => {
-    setFilteredCatgories(category);
+    setFilteredCatgories(category.filter(Boolean));
   }, [category]);
   return (
     <div className="mt-6">
       {isModalOpen && <AddCategory handleModal={handleModal} />}
+      {isEditModalOpen && (
+        <EditCategory handleModal={handleEditModal} id={selectedCategory} />
+      )}
       <div className="flex justify-between items-center py-4">
         <div>
           {" "}
@@ -59,7 +72,7 @@ function Home() {
       </div>
 
       <div className="bg-white w-full mt-6 pt-4 rounded-lg">
-        <div className="grid grid-cols-2  items-center px-4">
+        <div className="grid md:grid-cols-2  items-center px-4">
           <div className="fonr-semibold text-xl"></div>
           <div>
             <input
@@ -107,16 +120,21 @@ function Home() {
                     ></div>
                   )}
                   {idx === actionNo && (
-                    <div className="z-10 absolute -left-28 shadow-md border bg-white rounded  h-auto md:w-44 w-36 flex flex-col divide-y-2">
+                    <div className="z-10 absolute -left-28 shadow-md border bg-white rounded  h-auto md:w-52 w-36 flex flex-col divide-y-2">
                       <Link
                         to={`/dashboard/category/${item.id}`}
                         className="px-3 md:py-2 py-1 text-xs md:text-base flex items-center space-x-2"
                       >
                         <img src={Eyeopen} alt="view" className="w-5 " />
 
-                        <span>View Category</span>
+                        <span>View Category Items</span>
                       </Link>
-                      <button className="px-4 md:py-2 py-1 text-xs md:text-base flex items-center space-x-2">
+                      <button
+                        onClick={() => {
+                          handleEdit(item.id);
+                        }}
+                        className="px-4 md:py-2 py-1 text-xs md:text-base flex items-center space-x-2"
+                      >
                         <FiEdit />
 
                         <span>Edit Category</span>

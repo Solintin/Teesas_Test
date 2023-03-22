@@ -29,7 +29,7 @@ function Sidebar() {
           }`}
         >
           <img src={users} alt="" />
-          <h3>Dashbord</h3>
+          <h3>Dashboard</h3>
         </Link>
         <Link
           to="/dashboard/category"

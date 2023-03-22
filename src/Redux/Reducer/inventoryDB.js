@@ -24,20 +24,4 @@ const Inventory = (state = initailState, action) => {
 
 export default Inventory;
 
-// category: [
-// {
-//   id: "",
-//   user: "",
-//   name: "",
-//   cretaeAt: "",
-// },
-// ],
-// categoryItems: [
-// {
-//   id: "",
-//   user: "",
-//   name: "",
-//   category: "",
-//   createdAt: "",
-// },
-// ],
+

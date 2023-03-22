@@ -68,14 +68,14 @@ const LoginAction = (loginParams, navigate, setLoading) => {
 const addCategory = (payload, closeModal) => {
   return (dispatch, getState) => {
     const { category } = getState().inventories;
-
-    const isItemExist = category.find(
+    const cleanedCategory = category.filter(Boolean);
+    const isItemExist = cleanedCategory.find(
       (item) =>
         item.user === payload.user &&
         item.name.toLowerCase() === payload.name.toLowerCase()
     );
     if (isItemExist === undefined) {
-      const updatedCategories = [...category, payload];
+      const updatedCategories = [...cleanedCategory, payload];
       dispatch({ type: type.ADD_CATEGORY, payload: updatedCategories });
       toast.success("Category added successfully");
       closeModal();
@@ -87,7 +87,9 @@ const addCategory = (payload, closeModal) => {
 const removeCategory = (catId) => {
   return (dispatch, getState) => {
     const { category } = getState().inventories;
-    const updatedCategory = category.filter((item) => item.id !== catId);
+    const cleanedCategory = category.filter(Boolean);
+
+    const updatedCategory = cleanedCategory.filter((item) => item.id !== catId);
     dispatch({ type: type.ADD_CATEGORY, payload: updatedCategory });
     toast.success("Category deleted successfully");
   };
@@ -95,9 +97,67 @@ const removeCategory = (catId) => {
 const editCategory = (catId, payload, handleModal) => {
   return (dispatch, getState) => {
     const { category } = getState().inventories;
-    const updatedCategory = category.filter((item) => item.id !== catId);
-    dispatch({ type: type.ADD_CATEGORY, payload: [...updatedCategory, payload] });
+    const cleanedCategory = category.filter(Boolean);
+
+    const updatedCategory = cleanedCategory.filter((item) => item.id !== catId);
+    dispatch({
+      type: type.ADD_CATEGORY,
+      payload: [...updatedCategory, payload],
+    });
     toast.success("Category updated successfully");
+    handleModal();
+  };
+};
+
+
+
+const addItem = (payload, closeModal) => {
+  return (dispatch, getState) => {
+    const { categoryItems } = getState().inventories;
+    const cleanedCategoryItems = categoryItems.filter(Boolean); //filter away all null or undefined items value
+    const isItemExist = cleanedCategoryItems.find(
+      (item) =>
+        item.user === payload.user &&
+        item.name.toLowerCase() === payload.name.toLowerCase()
+    );
+    if (isItemExist === undefined) {
+
+      const updatedCategories = [...cleanedCategoryItems, payload];
+      dispatch({ type: type.ADD_CATEGORY_ITEM, payload: updatedCategories });
+      toast.success("item added successfully");
+      closeModal();
+    } else {
+      toast.error("You have already added this category");
+    }
+  };
+};
+
+const removeItem = (itemId) => {
+  return (dispatch, getState) => {
+    const { categoryItems } = getState().inventories;
+    const cleanedCategoryItems = categoryItems.filter(Boolean);
+
+    const updatedCategoryItems = cleanedCategoryItems.filter(
+      (item) => item.id !== itemId
+    );
+    dispatch({ type: type.ADD_CATEGORY_ITEM, payload: updatedCategoryItems });
+    toast.success("item deleted successfully");
+  };
+};
+
+const editItem = (itemId, payload, handleModal) => {
+  return (dispatch, getState) => {
+    const { categoryItems } = getState().inventories;
+    const cleanedCategoryItems = categoryItems.filter(Boolean);
+
+    const updatedCategoryItems = cleanedCategoryItems.filter(
+      (item) => item.id !== itemId
+    );
+    dispatch({
+      type: type.ADD_CATEGORY_ITEM,
+      payload: [...updatedCategoryItems, payload],
+    });
+    toast.success("item updated successfully");
     handleModal();
   };
 };
@@ -109,4 +169,7 @@ export {
   addCategory,
   removeCategory,
   editCategory,
+  addItem,
+  removeItem,
+  editItem,
 };

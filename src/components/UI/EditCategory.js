@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { IoCloseSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import {  editCategory } from "Redux/Actions/ActionCreators";
+import { editCategory } from "Redux/Actions/ActionCreators";
 
 function AddItem({ handleModal, id }) {
   const { category } = useSelector((state) => state.inventories);
@@ -24,12 +24,15 @@ function AddItem({ handleModal, id }) {
     };
     dispatch(editCategory(payload.id, payload, handleModal));
   };
+  useEffect(() => {
+    setCategoryName(getCategory.name);
+  }, [getCategory]);
   return (
     <div>
       <div className="fixed z-1 bg-black/30 inset-0   pt-20">
         <div className="bg-white rounded-lg w-[500px] h-auto mx-auto py-4 let swipeIn">
           <div className="p-4 border-b mb-4 flex justify-between">
-            <div>Edit Cateogry</div>
+            <div>Edit Category</div>
             <button onClick={handleModal}>
               <IoCloseSharp />
             </button>
@@ -43,6 +46,11 @@ function AddItem({ handleModal, id }) {
               value={categoryName}
               onChange={(e) => {
                 setCategoryName(e.target.value);
+              }}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleCategoryEdit();
+                }
               }}
             />
 

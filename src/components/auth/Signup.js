@@ -44,7 +44,7 @@ function Login() {
           </h1>
 
           <div className="bg-white h-full shadow-xl rounded-3xl py-10 px-4 mt-5">
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               <div className="mb-4 flex flex-col">
                 <label className="mb-2">First Name</label>
                 <input

@@ -1,79 +1,52 @@
 import React, { useState } from "react";
-import { FiEdit } from "react-icons/fi";
-import { AiOutlineDelete } from "react-icons/ai";
-import { BsThreeDotsVertical } from "react-icons/bs";
+
 import { VscEmptyWindow } from "react-icons/vsc";
-import AddCategory from "components/UI/AddItem";
+import AddItemIntoCategory from "components/UI/AddItemIntoCategory";
 import ItemIcon from "assets/Svg/item.png";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { digitFormatter } from "Utils/helper";
+import { removeItem } from "Redux/Actions/ActionCreators";
+import EditItem from "components/UI/EditItem";
 
 function Home() {
-  const data = [
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-    {
-      id: "456",
-      user: "Soliualaley",
-      name: "Rich Dad Poor Dad",
-      Category: "Public",
-      Price: "NGN 1200.00",
-      createdAt: "June 12 2023",
-    },
-  ];
+  const { id } = useParams();
+  console.log(id);
+  const { categoryItems } = useSelector((state) => state.inventories);
+  console.log(categoryItems);
+  const dispatch = useDispatch();
 
-  const [actionNo, setactionNo] = useState(null);
+  const userItems = categoryItems.filter((item) => item.categoryId === +id);
+
   const [isModalOpen, setIsModalOpen] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(null);
+  const [itemToEdit, setitemToEdit] = useState(null);
 
-  const handleActionDropDown = (idx) => {
-    setactionNo(idx);
-  };
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+  const handleDelete = (itemId) => {
+    dispatch(removeItem(itemId));
+  };
+  const handleEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+  const handleEdit = (item) => {
+    setIsEditModalOpen(true);
+    setitemToEdit(item);
+  };
+
   return (
     <div className="mt-6">
-      {isModalOpen && <AddCategory handleModal={handleModal} />}
+      {isModalOpen && (
+        <AddItemIntoCategory catId={id} handleModal={handleModal} />
+      )}
+      {isEditModalOpen && (
+        <EditItem item={itemToEdit} handleModal={handleEditModal} />
+      )}
       <div className="flex justify-between items-center py-4">
         <div>
-          {" "}
-          <h1 className="font-bold text-xl">Categories</h1>{" "}
+          <h1 className="font-bold text-xl">Categories</h1>
         </div>
         <div>
           <button
@@ -88,9 +61,9 @@ function Home() {
       </div>
 
       <div className="bg w-full mt-6 pt-4 rounded-lg">
-        {data.length > 0 ? (
+        {userItems.length > 0 ? (
           <div className="grid grid-cols-3 gap-4">
-            {[1, 2, 3].map((item, idx) => (
+            {userItems.map((item, idx) => (
               <div className="box_container" key={idx}>
                 <img
                   src={ItemIcon}
@@ -98,24 +71,43 @@ function Home() {
                   className="w- h-[200px] object-cover w-full"
                 />
                 <div className="p-3">
-                  {" "}
                   <div className="grid grid-cols-12 gap-6 mb-4">
                     <div className="col-span-3 font-medium">Name:</div>
-                    <div className="col-span-9 truncate">Rich Dad poor Dad</div>
+                    <div className="col-span-9 truncate"> {item.name} </div>
                   </div>
                   <div className="grid grid-cols-12 gap-6">
                     <div className="col-span-3 font-medium">price:</div>
-                    <div className="col-span-9 truncate">NGN 124.00</div>
+                    <div className="col-span-9 truncate">
+                      ${digitFormatter(item.price)}
+                    </div>
                   </div>
+                </div>
+                <div className=" text-slate-600  mt-2 grid md:grid-cols-2 rounded-b-lg">
+                  <button
+                    onClick={() => {
+                      handleEdit(item);
+                    }}
+                    className="bg-slate-300 p-2 rounded-bl-lg"
+                  >
+                    EDIT
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleDelete(item.id);
+                    }}
+                    className="text-white bg-red-300 p-2 rounded-br-lg"
+                  >
+                    DELETE
+                  </button>
                 </div>
               </div>
             ))}
           </div>
         ) : (
           <div className="bg-white w-full mt-6 p-4 rounded-lg grid place-content-center">
-            <div className=" my-4 font-bold text-gray-500">
+            <div className=" my-4 font-bold text-gray-500 text-center">
               <VscEmptyWindow className="h-48 w-48 mb-10" alt="" />
-              No Category Found
+              No Item Found
             </div>
           </div>
         )}
