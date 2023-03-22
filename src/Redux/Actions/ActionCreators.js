@@ -88,11 +88,16 @@ const addCategory = (payload, closeModal) => {
 };
 const removeCategory = (catId) => {
   return (dispatch, getState) => {
-    const { category } = getState().inventories;
+    const { categoryItems, category } = getState().inventories;
     const cleanedCategory = category.filter(Boolean);
 
     const updatedCategory = cleanedCategory.filter((item) => item.id !== catId);
+    //All Remove item attached to removed category, to prevent Data inconsistency
+    const updatedCategoryItems = categoryItems.filter(
+      (item) => item.categoryId !== catId
+    );
     dispatch({ type: type.ADD_CATEGORY, payload: updatedCategory });
+    dispatch({ type: type.ADD_CATEGORY_ITEM, payload: updatedCategoryItems });
     toast.success("Category deleted successfully");
   };
 };
