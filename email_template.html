@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onbaording Email Template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: #888;
+        font-family: "Montserrat", sans-serif;
+      }
+      .wrapper {
+        margin: 0 auto;
+        max-width: 600px;
+        padding: 20px;
+        background: #fff;
+        border-radius: 4px 4px 0 0;
+      }
+      .wrapper .img {
+        display: flex;
+        justify-content: center;
+      }
+      .wrapper img {
+        height: 40px;
+        width: auto;
+      }
+      .welcome {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+      .detail {
+        display: flex;
+        align-items: center;
+      }
+      .detail h4 {
+        font-weight: 700;
+        margin-right: 6px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+      }
+      .detail p {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .action {
+        text-align: left;
+      }
+      .note {
+        color: green;
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      footer {
+        background: #a2ee08;
+        padding: 20px 10px;
+        display: flex;
+        justify-content: center;
+        color: #000;
+        margin: 0 auto;
+        max-width: 620px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="wrapper">
+      <div class="img">
+        <img src="https://teesas.com/main/images/site-logo.png" alt="" />
+      </div>
+      <h2 class="welcome">Hello {name} institute,</h2>
+      <p>
+        Welcome to your EMS account. Your institution's account has been created
+        successfully. Below are your login credentials:
+      </p>
+      <div class="detail">
+        <h4>Email:</h4>
+        <p>{email}</p>
+      </div>
+      <div class="detail">
+        <h4>Password:</h4>
+        <p>{password}</p>
+      </div>
+      <div class="action">
+        <h4>
+          Click <span> <a href="#"> here </a></span> to verify your account.
+        </h4>
+      </div>
+      <div class="note">
+        We have provided you with a secure password, but please feel free to
+        customize it to something that you find more suitable.
+      </div>
+      <p> Best Regards</p>
+      <p>The Teesas Team.</p>
+    </section>
+    <footer>
+      <p>
+        You are receiving this message because you are a member of Edo state
+        education commission. For more information please visit our Website or
+        reach our Support Team (hello@teesas.com)
+      </p>
+      <p>2023 © EMS • All Rights Reserved</p>
+    </footer>
+  </body>
+</html>
